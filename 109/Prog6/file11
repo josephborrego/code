@@ -1,0 +1,5 @@
+4
+0 1 echo Let's test a fifo.
+0 1 echo Duplex time! This might take a minute....
+0 1 /home/jloew/CSE109/p6student/fifo
+0 1 /home/jloew/CSE109/p6student/consumer

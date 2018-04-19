@@ -1,0 +1,11 @@
+10
+0 1 echo Killing groups of spawned off programs, ordering might cause this to never finish!
+0 1 cat
+0 1 cat
+0 1 /home/jloew/CSE109/p6/oldp5 -r:10 -t:0
+0 1 /home/jloew/CSE109/p6/oldp5 -r:10 -t:0
+0 1 cat
+0 1 cat
+0 1 /home/jloew/CSE109/p6/oldp5 -R:10 -t:0
+0 1 killall oldp5
+0 1 killall cat

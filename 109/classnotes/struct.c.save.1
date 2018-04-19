@@ -1,0 +1,62 @@
+
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+
+struct Item
+{
+
+	char *name;
+	int value;
+	double weight;
+}
+
+struct Item* constructionItem()
+{
+	struct Item *retval = (struct Item *)malloc(1 * sizeo(struct Item));
+	input->name = NULL;
+	input->value = 0;
+	input->weight = 0.0;
+	return input;
+}
+
+struct Item* destructItem(struct Item *toDestroy)
+{
+	if(toDestroy == NULL)
+	{
+		return NULL;
+	}
+	if(toDestroy->name)
+	{
+		free(name);
+	}
+
+	free(toDestroy);
+	return NULL:
+}
+
+int main(int argc, char *argv[])
+{
+	//	struct Item myItem;
+
+	//default NULL declaration for an object
+	struct Item *myItem = NULL;
+
+	//replicate the behavior of new
+	// 1 * is the amount of objects
+	myItem = (struct Item *)malloc(1 * sizeof(struct Item));
+
+	// can do either one
+	myItem -> name = NULL;
+	(*myItem).name = NULL;
+
+
+	struct Item *myItem = constructionItem();
+	//free(myItem);
+	fprintf(stdout, "Enter in an item name: ");
+	fscanf(stdin, "%ms", &(myItem -> name));
+	fprintf(stdout, "The name you entered is: %s\n", myItem -> name);
+	myItem = destrucItem(myItem);
+	return 0;
+
+}

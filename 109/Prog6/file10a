@@ -1,0 +1,11 @@
+10
+0 1 echo Let's test connecting inputs
+0 1 echo Yes, we shall!
+0 2 cat /home/jloew/CSE109/p6student/input9a
+2 1 /home/jloew/CSE109/p6student/oldp5 -R:10 -t:0
+0 2 cat /home/jloew/CSE109/p6student/input9a
+2 1 /home/jloew/CSE109/p6student/oldp5 -r:10 -t:0
+2 1 /home/jloew/CSE109/p6student/oldp5 -R:10 -t:0
+0 2 cat /home/jloew/CSE109/p6student/input9a
+2 1 /home/jloew/CSE109/p6student/oldp5 -r:10 -t:0
+0 2 cat /home/jloew/CSE109/p6student/input9a

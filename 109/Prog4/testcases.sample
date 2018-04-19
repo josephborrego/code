@@ -1,0 +1,25 @@
+alloc is the answer executable.
+Link your Alloc.o file with Memprint.o and prog4.o to create your own executable.
+Something like: gcc -o prog4 Memprint.o prog4.o Alloc.o
+Outputs should be similar to the ones listed below (you will end up with different memory addresses)
+
+<executable> <program 2's chunk size> <program 4's allocation space>
+
+./alloc 100 500 < input.5s
+./alloc 100 7000 < input.5s 2> /dev/null
+./alloc 100 6000 < input.5s 2> /dev/null
+./alloc 500 6000 < input.5s 2> /dev/null
+./alloc 1000 5000 < input.5s 2> /dev/null
+./alloc 1000 4900 < input.5s 2> /dev/null
+./alloc 1000 4800 < input.5s 2> /dev/null
+./alloc 100 10000 < input.10s 2> /dev/null
+./alloc 1000 10000 < input.10s 2> /dev/null
+./alloc 100 15000 < input.20s 2> /dev/null
+./alloc 1000 10000 < input.20s 2> /dev/null
+./alloc 1000 9000 < input.20s 2> /dev/null
+./alloc 100 25000 < input.55s 2> /dev/null
+./alloc 112 15000 < input.55s 2> /dev/null
+./alloc 1000 15000 < input.55s 2> /dev/null
+./alloc 1000 90000 < input.255s 2> /dev/null
+./alloc 1100 80000 < input.255s 2> /dev/null
+./alloc 2560 60000 < input.255s 2> /dev/null

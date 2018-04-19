@@ -1,0 +1,127 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+#include<fcntl.h>
+#include<errno.h>
+
+int main(int argc, char **argv)
+{
+	char *buffer = NULL;
+	size_t  size = 0;  //if we say size_t we can use it on another machine
+	int areWeDone = 0;
+	FILE *input = stdin;
+	char *filename = NULL;
+	int nextArg = 1;
+
+	while(nextArg < argc)
+	{
+		char *currentArg = argv[nextArg];
+		nextArg++;
+// argc
+		if(nextArg >= argc)
+		{
+			break;
+		}
+
+		if((currentArg[0] == '-' && (currentArg[1] == 'f') && (currentArg[2] == '\0'))
+		{
+		char *filename = argv[nextArg];
+		nextArg++;
+		}
+	}
+// END OF PROCESSING COMMAND LINE ARGUMENTS
+
+
+//if (filename != NULL)
+if (filename)
+{
+	input = fopen(filename, "r");
+	if(input == NULL)
+	{
+		int error = errno;
+		fprintf(stderr, "Error trying to open file '%s'\n", filename);
+		fprintf(stderr, "Error(%d): %s\n", error, strerror(error));
+		return error;
+	}
+}
+
+
+// method to read in lines of text
+	while(1)
+	{
+		char *storage = (char *)malloc(80 * sizeof(char));
+		int capacity = 80;
+		int size = 0;
+		int stop = 0;
+
+		while(stop == 0)
+		{
+			unsigned char nextLetter = (unsigned char)fgetc(input);
+
+			if(nextLetter == EOF)
+			{
+				break;
+				// End of input of error case
+			}
+			if(size == capacity)
+			{
+				//reassign storage
+				char *temp = (char *)malloc(capacity * 2 * sizeof(char));
+				for(int i = 0; i < size; i++)
+				{
+					temp[i] = storage[i];
+				}
+				capacity *= 2;
+				free(storage);
+				storage = temp;
+				}
+			storage[size] = nextLetter;
+			size++;
+			}
+			storage[size] = '\0';
+	}
+
+
+
+
+	// while(!areWeDone)
+	while(areWeDone == 0)
+	{
+		int retval = getline(&buffer, &size, stdin);
+
+		if(retval == -1)
+		{
+				areWeDone = 1;
+		}
+		if(retval > 0)
+		{
+		int location = retval - 1;
+	//	location = strlen(buffer);
+	//	fprintf(stdout, "Strlen detected %d\n", location);
+			if(buffer[location] == '\n')
+			{
+				buffer[location] = '\0';
+			}
+
+		}
+
+		fprintf(stdout, "Return value is: %d\n", retval);
+		fprintf(stdout, "Where buffer points to: '%p'\n", buffer);
+		fprintf(stdout, "Getline changed size to: %d\n", size);
+		fprintf(stdout, "The input is '%s'\n", buffer);
+
+		free(buffer);
+		buffer = NULL; //set it to to null to allocate the memory
+	}
+
+
+	return 0;
+
+}
+
+//g++ -o p2 stringargs.c 
+// redirect
+// ./p2 < temp
+// redirects what's in temp as the input of temp

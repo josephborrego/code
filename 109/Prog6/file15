@@ -1,0 +1,5 @@
+4
+0 1 echo Let's test connecting inputs
+0 1 echo Feedback test!
+2 3 /home/jloew/CSE109/p6student/duallink
+3 2 /home/jloew/CSE109/p6student/duallink

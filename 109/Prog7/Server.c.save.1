@@ -1,0 +1,51 @@
+
+/*
+CSE 109: Spring 2017
+<Joseph Borrego>
+<job218>
+<Server>
+Program #7
+*/
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/socket.h>
+#include<metinet/h>
+
+int main(int argc, char **argv)
+{
+	if(argc != 1)
+	{
+		return 1;
+	}
+
+	short port = 10000;
+	short endport = 15000;
+	file *fp;
+	fp = fopen(argv[0], "rb");
+
+	if(fp == NULL)
+	{
+		return NULL;
+	}
+
+	int mySocket;
+	/* create the socket*/
+	mySocket = socket(AF_INET, SOCK_STREAM, 0);
+	if(mySocket == -1)
+	{
+		fprintf(stderr, "Socket Failed: (%d) %s\n", errno, strerror(errno));
+		return 1;
+	}
+
+	//store address into memory
+	sockaddr_in serve;
+	//fill memory with a constant byte
+	memset(&serve, 0, sizeof(sockaddr_in)));
+	/*AF_INET is internetwork */
+	serve->sin_family = AF_INET;
+	serve->sin_addr.s_addr
+return 0;
+}

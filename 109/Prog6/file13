@@ -1,0 +1,7 @@
+6
+0 1 echo Let's test connecting inputs
+0 1 echo Duplex time!
+2 3 cat file1 -
+3 2 cat file2 -
+0 1 echo Hmmm?
+0 1 echo Hmmm. This doesn't terminate.

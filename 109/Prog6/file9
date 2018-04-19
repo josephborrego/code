@@ -1,0 +1,7 @@
+6
+0 1 echo Let's make a file using IPC
+0 1 rm output9
+0 2 cat /home/jloew/CSE109/p6student/input9a
+2 1 tee output9
+0 1 cat output9
+0 1 cat output9

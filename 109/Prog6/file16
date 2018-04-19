@@ -1,0 +1,11 @@
+10
+0 1 echo Hello, this is a test
+0 1 echo Possibly the final test? Of great justice!!
+0 1 ls -la
+0 1 cat file
+0 1 ./args -la
+0 1 /home/jloew/CSE109/p6student/args 1 2 3 4 
+0 2 cat args.c
+2 1 cat
+2 1 sort -k5,5
+0 2 ls -la

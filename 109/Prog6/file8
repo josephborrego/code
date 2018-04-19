@@ -1,0 +1,5 @@
+4
+0 1 echo Failing executions?
+0 1 butts
+0 1 grep butts /home/jloew/CSE109/p6student/file1
+0 1 grep echo /home/jloew/CSE109/p6student/file1

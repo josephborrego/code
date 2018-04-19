@@ -1,0 +1,5 @@
+4
+0 1 echo Let's test connecting inputs (trivially)
+0 1 echo Duplex time!
+2 3 /home/jloew/CSE109/p6student/fifo
+3 2 /home/jloew/CSE109/p6student/consumer

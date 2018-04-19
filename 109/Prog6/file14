@@ -1,0 +1,9 @@
+8
+0 1 echo Let's test connecting inputs
+0 1 echo Duplex time!
+2 3 cat file1 -
+3 2 cat file2 file3
+0 1 echo No output shown, well. Of course not
+0 1 echo I suppose we should see the output...
+2 1 cat file1 -
+0 2 cat file2 file3

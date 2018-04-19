@@ -1,0 +1,5 @@
+4
+0 1 echo Slightly more complex case, but barely.
+0 1 echo I suppose your command line arguments work.
+0 1 cat file1 file2
+0 1 ls -l

@@ -1,0 +1,5 @@
+4
+0 1 echo Can we run ourself?!
+0 1 /home/jloew/CSE109/p6student/p6ref file1
+0 1 /home/jloew/CSE109/p6student/p6ref file3
+0 1 /home/jloew/CSE109/p6student/p6ref file5

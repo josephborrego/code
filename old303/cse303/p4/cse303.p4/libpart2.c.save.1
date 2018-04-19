@@ -1,0 +1,199 @@
+#include<stdint.h>
+#include<fcntl.h>
+#include<stdio.h>
+#include<dlfcn.h>
+#include<string.h>
+#include<errno.h>
+#include<execinfo.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<stdarg.h>
+#include<sys/stat.h>
+/* We aren't providing much code here.  You'll need to implement quite a bit
+ * for your library. */
+
+/* Declarations for the functions in part2_hash.cc, so that we don't need an
+ * extra header file. */
+void malloc_insert(size_t size);
+void malloc_dump();
+void so_allocate();
+void so_deallocate();
+
+static int ignoreMalloc = 0;
+
+/*The banker will do a bunch of transfers between accounts. Your job is to fake the file system. When the banker requests to open a file, do not actually open it, pretend you opened it.
+*Since you can interposition all file I/O, whenever the banker tries to use the file that you never opened, you can handle it and fake a valid response. (done)
+
+*For the fake account, use the data from the actual account (you can open/read/close it).
+*When the banker closes a fake file, make sure the updated value ends up in the real file.
+*/
+
+int open(const char *path, int oflags)
+{
+	const char* name = path;
+	return -1;
+}
+
+
+/*
+The banker will spawn a new process of itself to manage subbankers. Each subbanker will be assigned one of the seven baseline accounts (not hacker). 
+It will use pipes and pipe communication to make transfers amongst the accounts. 
+Intercept these and steal a small portion of each transfer (send this to hacker, which will always be the last set of pipes created). 
+Output whenever you steal a portion and who would have gotten that money.
+        Note: You are solving for this particular instance of the problem. A generic solution is non-trivial.
+*/
+/*
+pid_t fork(void)
+{
+	fprintf(stderr, "forking\n");
+	return 0;
+}
+*/
+
+void moneyMaker(char* person, int value)
+{
+	fprintf(stderr, "%s would have gotten %d\n", person, value);
+}
+
+ssize_t read(int fildes, void *buf, size_t nbyte)
+{
+	fprintf(stderr, "read\n");
+	return 1;
+}
+
+
+ssize_t write(int fildes, const void *buf, size_t nbyte)
+{
+	fprintf(stderr, "write\n");
+	FILE * fp;
+   	fp = fopen ("file.txt", "w+");
+	fputs("yoyoyoyoyoyyo\n", fp);
+	fclose(fp);
+	return 1;
+}
+
+int close(int handle)
+{
+	fprintf(stderr, "close\n");
+	return 1;
+}
+
+int fstat(int fildes, struct stat *buf)
+{
+	fprintf(stderr, "fstat\n");
+	return 1;
+}
+
+FILE* fopen( const char* filename, const char* mode)
+{
+	fprintf(stderr, "fopen\n");
+	return NULL;
+}
+
+size_t fread( void* buffer, size_t size, size_t count, FILE* stream )
+{
+	fprintf(stderr, "in fread\n");
+	return 1;
+}
+
+char *fgets(char *restrict s, int n, FILE *restrict stream)
+{
+	fprintf(stderr, "fgets\n");
+	return NULL;
+}
+
+int fgetc(FILE *stream)
+{
+	fprintf(stderr, "fgetc\n");
+	return 1;
+}
+
+int fputs(const char *restrict s, FILE *restrict stream)
+{
+	fprintf(stderr, "fputs\n");
+	return 1;
+}
+
+int putchar(int chars)
+{
+	fprintf(stderr, "putchar\n");
+	return 1;
+}
+
+int fputc( int c, FILE *fp )
+{
+	fprintf(stderr, "fputc\n");
+	return 1;
+}
+
+
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
+{
+	static size_t (*origfwrite)(const void*, size_t, size_t, FILE*) = NULL;
+	if(!origfwrite)
+	{
+		origfwrite = (size_t (*)(const void*, size_t, size_t, FILE*))dlsym(RTLD_NEXT, "fwrite");
+	}
+    //fprintf(stderr, "fwrite\n");
+    return origfwrite(ptr, size, nmemb, stream);
+}
+
+void *malloc(size_t bytes)
+{
+	static void* (*origMalloc)(size_t) = NULL;
+//	fprintf(stderr, "yo\n");
+	if(!origMalloc)
+	{
+		origMalloc = (void* (*)(size_t))dlsym(RTLD_NEXT, "malloc");
+	}
+
+	if(ignoreMalloc)
+	{
+		return origMalloc(bytes);
+	}
+
+	ignoreMalloc = 1;
+	malloc_insert(bytes);
+	ignoreMalloc = 0;
+
+	return origMalloc(bytes);
+}
+
+
+__attribute__((destructor))
+static void deallocate()
+{
+	malloc_dump();
+	so_deallocate();
+}
+
+
+__attribute__((constructor))
+static void allocate()
+{
+	so_allocate();
+}
+
+
+//created this as of october 23
+//match fopen with the modifier restrict
+/*
+extern FILE *fopen(const char *filename, const char *mode)
+{
+	fprintf(stderr, "intercepted");
+	//when they try to call the orignial fopen, it'll be intercepted with this
+	static FILE*(*origFopen)(const char *, const char *) = NULL;
+
+	if(!origFopen)
+	{
+		origFopen = (FILE* (*)(const char*, const char*))dlsym(RTLD_NEXT, "fopen");
+	}
+
+	FILE *fp = origFopen("test.txt", "w");
+	fprintf(fp,"yoyo");
+	return origFopen(filename, mode);
+}
+*/
+
+
+
